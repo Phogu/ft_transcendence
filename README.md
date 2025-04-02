@@ -1,2 +1,2 @@
 # ft_transcendence
-42 Echole ft_transcendence Projesi
+42 Ecole ft_transcendence Project
