@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <title>{% block title %}PONGAME{% endblock title %}</title>
+        <!-- [Meta] -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="42 ft_transcendence" />
+        <meta name="author" content="MASS Team" />
+
+        <!-- [Favicon] -->
+        <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+        <!-- [Bootstrap CSS] -->
+        <link rel="stylesheet" href="{% static 'fonts/bootstrap-icons/font/bootstrap-icons.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" id="main-style-link" />
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" id="main-style-link" />
+    </head>
+    <body class="bg-dark text-white">
+
+        <!-- PONGAME Background -->
+        <div class="pong-background position-absolute w-100 h-100">
+            <div class="center-line"></div>
+            <div class="center-circle"></div>
+            <div class="paddle paddle-left"></div>
+            <div class="paddle paddle-right"></div>
+            <div class="ball"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container-fluid game-container">
+            <div class="content-wrapper">
+                <div class="text-center">
+                    <p class="fs-4 mb-0 text-light-emphasis" data-i18n="welcome_message">Welcome to</p>
+                    <h1 class="display-1 fw-bold mb-2" data-i18n="pong_game">PONGAME</h1>
+                    <button class="btn btn-outline-light btn-lg fs-2 shake px-5 py-3" style="width: 300px" onclick="loadLogin()">
+                        <i class="bi bi-person-circle me-2"></i>
+                        <span class="text-2xl" data-i18n="login">Login</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developers Section -->
+        <div class="developers-section">
+            <p class="text-muted mb-5" data-i18n="created_by">Created with ❤️ by</p>
+            <div class="developers-names">
+                <span class="dev-name mx-2">Fcelik</span>
+                <span class="dev-name mx-2">Buyilmaz</span>
+                <span class="dev-name mx-2">Stakan</span>
+                <span class="dev-name mx-2">Megemen</span>
+                <span class="dev-name mx-2">Mbuyukat</span>
+            </div>
+            <div class="mt-5">
+                <p class="mb-0" data-i18n="footer_message">&copy; 2024 Transcendence Team. All Rights Reserved.</p>
+            </div>
+        </div>
+
+        <script src="{% static 'js/loadlogin.js' %}"></script>
+    </body>
+</html>

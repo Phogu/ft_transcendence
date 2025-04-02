@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <!-- [Head] start -->
+    <head>
+        <title>{% block title%}PONGAME{% endblock title%}</title>
+        <!-- [Meta] -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="42 ft_transcendence" />
+        <meta name="author" content="MASS Team" />
+
+        <!-- [Favicon] icon -->
+        <link rel="icon" href="{% static "/images/favicon.ico" %}" type="image/x-icon" />
+        <!-- [Bootstrap CSS Files] -->
+        <link rel="stylesheet" href="{% static "/css/bootstrap.css" %}" id="main-style-link" />
+        <link rel="stylesheet" href="{% static "/css/main.css" %}" id="main-style-link" />
+    </head>
+    <!-- [Head] end -->
+    <!-- [Body] Start -->
+
+    <body data-pc-direction="ltr">
+        <!-- [ Pre-loader ] start -->
+        <div class="loader-bg">
+            <div class="loader-track">
+                <div class="loader-fill"></div>
+            </div>
+        </div>
+
+        <!-- [ Pre-loader ] End -->
+        <div id="content" class="auth-main v1">{% include current_page %}</div>
+        <!-- [ Main Content ] end -->
+        <!-- Required Js -->
+        <script src="{% static "/js/popper.min.js" %}"></script>
+        <script src="{% static "/js/bootstrap.min.js" %}"></script>
+
+        <script>
+            function loadContent(pageUrl, path) {
+                fetch(pageUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ağ hatası: ' + response.status);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById("content").innerHTML = html;
+                    history.pushState(null, "", path);
+
+                    var activeLink = document.querySelector("li.active");
+                    if (activeLink) {
+                        activeLink.classList.remove("active");
+                    }
+
+                    var clickedLink = document.querySelector(`a[data-url="${path}"]`);
+                    if (clickedLink) {
+                        clickedLink.parentElement.classList.add("active");
+                    }
+                })
+                .catch(error => {
+                    console.error("Hata:", error);
+                });
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                var path = window.location.pathname;
+                loadContent(path + "raw/", path);
+            });
+
+            window.onpopstate = function (event) {
+                var path = window.location.pathname;
+                loadContent(path + "raw/", path);
+            };
+        </script>
+    </body>
+    <!-- [Body] end -->
+</html>

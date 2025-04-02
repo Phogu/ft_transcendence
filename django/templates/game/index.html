@@ -1,0 +1,181 @@
+{% load static %} 
+<head>
+    <title>{% block title%}PONGAME{% endblock title%}</title>
+    <!-- [Meta] -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="42 ft_transcendence" />
+    <meta name="author" content="42 Team" />
+
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="{% static "/images/favicon.ico" %}" type="image/x-icon" />
+
+    <!-- [Bootstrap CSS Files] -->
+    <link rel="stylesheet" href="{% static "/fonts/bootstrap-icons/font/bootstrap-icons.css" %}" />
+    <link rel="stylesheet" href="{% static "/css/bootstrap.css" %}" id="main-style-link" />
+    
+</head>
+<body data-pc-direction="ltr">
+    <!-- Ana Menü -->
+    <div id="mainMenu" class="container text-center py-5">
+        <h1 class="display-4 mb-4">3D Pong Game</h1>
+        <button id="vsModeButton" class="btn btn-success btn-lg">VS Mode</button>
+        <button id="tournamentModeButton" class="btn btn-danger btn-lg">Tournament Mode</button>
+    </div>
+
+    <!-- VS Mode Formu -->
+    <form id="gameOptionsForm" class="container py-5" style="display: none">
+        <h1 class="display-5 mb-4">VS Mode</h1>
+
+        <input type="text" id="player1Name" name="player1Name" value="{{ request.user.username }}" hidden />
+
+        <div id="player2Div" class="mb-3" style="display: none;">
+            <label for="player2Name" class="form-label">Second Player Name:</label>
+            <select id="player2Name" name="player2Name" class="form-select" required>
+                {% for friend in friends %}
+                    <option value="{{ friend.username }}">{{ friend.username }}</option>
+                {% empty %}
+                    <option value="no_friend" disabled selected>You Have No Friends</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="aiMode" class="form-label">Should the Second Player be AI?</label>
+            <select id="aiMode" name="aiMode" class="form-select">
+                <option value="no">No</option>
+                <option value="yes" selected>Yes</option>
+            </select>
+        </div>
+
+        <div id="difficultyOptions" class="mb-3">
+            <label for="aiDifficulty" class="form-label">AI Difficulty Level:</label>
+            <select id="aiDifficulty" name="aiDifficulty" class="form-select">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="gameMode" class="form-label">Game Mode:</label>
+            <select id="gameMode" name="gameMode" class="form-select">
+                <option value="standard">Standart</option>
+                <option value="imponderable">Imponderable</option>
+                <option value="accelerating">Accelerating</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="paddleSize" class="form-label">Paddle Size:</label>
+            <select id="paddleSize" name="paddleSize" class="form-select">
+                <option value="large">Large</option>
+                <option value="medium" selected>Medium</option>
+                <option value="small">Small</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="ballSpeed" class="form-label">Ball Speed:</label>
+            <select id="ballSpeed" name="ballSpeed" class="form-select">
+                <option value="slow">Slow</option>
+                <option value="medium" selected>Medium</option>
+                <option value="fast">Fast</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="gameTheme" class="form-label">Game Theme:</label>
+            <select id="gameTheme" name="gameTheme" class="form-select">
+                <option value="hockey">Hockey</option>
+                <option value="football">Football</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-lg">Start Game</button>
+    </form>
+
+    <!-- Turnuva Modu Formu -->
+    <form id="tournamentForm" class="container py-5" style="display: none">
+        <h1 class="display-5 mb-4">Tournament Mode</h1>
+
+        <div class="mb-3">
+            <label for="player1Name" class="form-label">1st Player Name (You):</label>
+            <input type="text" id="player1Name" name="player1Name" class="form-control" value="{{ request.user.username }}" disabled required />
+        </div>
+
+        <div class="mb-3">
+            <label for="player2NameTournament" class="form-label">2nd Player Name:</label>
+            <select id="player2NameTournament" name="player2NameTournament" class="form-select" required>
+                {% for friend in friends %}
+                    <option value="{{ friend.username }}">{{ friend.username }}</option>
+                {% empty %}
+                    <option value="no_friend" disabled selected>You Have No Friends.</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="player3Name" class="form-label">3rd Player Name:</label>
+            <select id="player3Name" name="player3Name" class="form-select" required>
+                {% for friend in friends %}
+                    <option value="{{ friend.username }}">{{ friend.username }}</option>
+                {% empty %}
+                    <option value="no_friend" disabled selected>You Have No Friends.</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="player4Name" class="form-label">4th Player Name:</label>
+            <select id="player4Name" name="player4Name" class="form-select" required>
+                {% for friend in friends %}
+                    <option value="{{ friend.username }}">{{ friend.username }}</option>
+                {% empty %}
+                    <option value="no_friend" disabled selected>You Have No Friends.</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="gameModeTournament" class="form-label">Game Mode:</label>
+            <select id="gameModeTournament" name="gameModeTournament" class="form-select">
+                <option value="standard">Standart</option>
+                <option value="imponderable">Imponderable</option>
+                <option value="accelerating">Accelerating</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="paddleSizeTournament" class="form-label">Paddle Size:</label>
+            <select id="paddleSizeTournament" name="paddleSizeTournament" class="form-select">
+                <option value="large">Large</option>
+                <option value="medium" selected>Medium</option>
+                <option value="small">Small</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="ballSpeedTournament" class="form-label">Ball Speed:</label>
+            <select id="ballSpeedTournament" name="ballSpeedTournament" class="form-select">
+                <option value="slow">Slow</option>
+                <option value="medium" selected>Medium</option>
+                <option value="fast">Fast</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="gameThemeTournament" class="form-label">Game Theme:</label>
+            <select id="gameThemeTournament" name="gameThemeTournament" class="form-select">
+                <option value="hockey">Hockey</option>
+                <option value="football">Football</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-danger btn-lg">Start Tournament</button>
+    </form>
+    <script src="{% static "/js/gameloadlater.js" %}"></script>
+    <script src="{% static "/js/pong3d.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</body>

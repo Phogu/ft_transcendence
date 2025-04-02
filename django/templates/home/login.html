@@ -1,0 +1,48 @@
+{% load static %}
+<div class="auth-wrapper position-relative min-vh-100">
+    <div class="pong-background">
+        <div class="center-line"></div>
+        <div class="center-circle"></div>
+        <div class="paddle paddle-left"></div>
+        <div class="paddle paddle-right"></div>
+        <div class="ball"></div>
+    </div>
+
+    <div class="auth-form position-relative z-3">
+        <div class="login-card">
+            <form id="loginForm">
+                {% csrf_token %}
+                <div class="card-body text-center">
+                    <img src="{% static '/images/authentication/img-auth-login.png' %}" alt="login" class="login-img mb-4" />
+                    <h4 class="neon-text mb-3" data-i18n="login_to_pong">Login to PONGAME</h4>
+                    <p class="text-light mb-4">
+                        <span data-i18n="no_account">Don't have an account?</span>
+                        <a data-url="{% url 'register' %}" onclick="loadContent('{% url 'registerRaw' %}', '{% url 'register' %}')" style="cursor: pointer;" class="neon-link ms-1 text-success" data-i18n="create_account">Create Account</a>
+                    </p>
+
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control custom-input" id="username" placeholder="Enter your username" data-i18n-placeholder="username_placeholder" />
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="password" class="form-control custom-input" id="password" placeholder="Enter your password" data-i18n-placeholder="password_placeholder" />
+                    </div>
+
+                    <button type="button" class="btn btn-neon btn-lg w-100 mb-3 text-2xl" onclick="submitLoginForm()" data-i18n="login">Login</button>
+
+                    <div class="separator my-4">
+                        <span class="text-light" data-i18n="or_continue_with">Or continue with</span>
+                    </div>
+
+                    <div class="d-grid">
+                        <a href="https://api.intra.42.fr/oauth/authorize?client_id={{ ClientID }}&redirect_uri={{ RedirectURI }}&response_type=code" class="btn btn-neon-outline btn-lg w-100">
+                            <img class="intra-logo me-2" src="{% static '/images/42_logo.svg' %}" alt="42" />
+                            <span class="text-2xl" data-i18n="intra_login">Intra Login</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static '/js/login.js' %}"></script>

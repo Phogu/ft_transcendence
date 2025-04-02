@@ -1,0 +1,155 @@
+{% load static %}
+<div class="pc-content">
+    <!-- [ Main Content ] start -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-6 me-1">
+            <div class="card statistics-card-1 bg-warning-subtle">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div style="background-color: #ffd700" class="avtar text-white me-3">
+                            <i class="bi bi-trophy-fill f-26 p-4"></i>
+                        </div>
+                        <div class="col-3 col-sm-3">
+                            <p class="text-muted mb-0">Score</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ first.score|default:"-" }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-9 col-sm-5">
+                            <p class="text-muted mb-0">Name</p>
+                            <div class="d-flex align-items-center">
+                                <img src="{{ first.profile_image|default:'/static/images/user/default.jpg' }}" alt="" class="img-fluid wid-40 rounded-1" />
+                                <h4 style="color: black" class="mb-0 ms-2">{{ first.user.username|default:"Unknown" }}</h4>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2">
+                            <p class="text-muted mb-0">Lose</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ first.matches_lost|default:"0" }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2">
+                            <p class="text-muted mb-0">Win</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ first.matches_won|default:"0" }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-6">
+            <div class="card statistics-card-1 bg-dark-subtle">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div style="background-color: #c0c0c0" class="avtar text-white me-3">
+                            <i class="bi bi-2-square f-26 p-4"></i>
+                        </div>
+                        <div class="col-3 col-sm-3">
+                            <p class="text-muted mb-0">Score</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ second.score|default:"-" }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-9 col-sm-5">
+                            <p class="text-muted mb-0">Name</p>
+                            <div class="d-flex align-items-center">
+                                <img src="{{ second.profile_image|default:'/static/images/user/default.jpg' }}" alt="" class="img-fluid wid-40 rounded-1" />
+                                <h4 style="color: black" class="mb-0 ms-2">{{ second.user.username|default:"Unknown" }}</h4>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2">
+                            <p class="text-muted mb-0">Lose</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ second.matches_lost|default:"0" }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2">
+                            <p class="text-muted mb-0">Win</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ second.matches_won|default:"0" }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-6">
+            <div style="background-color: #efba86" class="card statistics-card-1">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div style="background-color: #cd7f32" class="avtar text-white me-3">
+                            <i class="bi bi-3-square f-26 p-4"></i>
+                        </div>
+                        <div class="col-3 col-sm-3">
+                            <p class="text-muted mb-0">Score</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ third.score|default:"-" }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-9 col-sm-5">
+                            <p class="text-muted mb-0">Name</p>
+                            <div class="d-flex align-items-center">
+                                <img src="{{ third.profile_image|default:'/static/images/user/default.jpg' }}" alt="" class="img-fluid wid-40 rounded-1" />
+                                <h4 style="color: black" class="mb-0 ms-2">{{ third.user.username|default:"Unknown" }}</h4>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2">
+                            <p class="text-muted mb-0">Lose</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ third.matches_lost|default:"0" }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2">
+                            <p class="text-muted mb-0">Win</p>
+                            <div class="d-flex align-items-end">
+                                <h2 style="color: black" class="mb-0 f-w-500">{{ third.matches_won|default:"0" }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Lose</th>
+                                <th>Win</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for player in remaining_users %}
+                            <tr>
+                                <td>{{ forloop.counter|add:"3" }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ player.profile_image|default:'/static/images/user/default.jpg' }}" alt="" class="img-fluid wid-30 rounded-1" />
+                                        <h6 class="mb-0 ms-2">{{ player.user.username|default:"Unknown" }}</h6>
+                                    </div>
+                                </td>
+                                <td>{{ player.matches_lost|default:"0" }}</td>
+                                <td>{{ player.matches_won|default:"0" }}</td>
+                                <td>{{ player.score|default:"-" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No data available</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- [ Main Content ] end -->
+</div>

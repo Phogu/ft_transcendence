@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+    <!-- [Head] start -->
+    <head>
+        <title>{% block title%}PONGAME{% endblock title%}</title>
+        <!-- [Meta] -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="42 ft_transcendence" />
+        <meta name="author" content="42 Team" />
+
+        <!-- [Favicon] icon -->
+        <link rel="icon" href="{% static "/images/favicon.ico" %}" type="image/x-icon" />
+
+        <!-- [Bootstrap CSS Files] -->
+        <link rel="stylesheet" href="{% static "/fonts/bootstrap-icons/font/bootstrap-icons.css" %}" />
+        <link rel="stylesheet" href="{% static "/css/bootstrap.css" %}" id="main-style-link" />
+        
+    </head>
+    <!-- [Head] end -->
+    <!-- [Body] Start -->
+
+    <body data-pc-direction="ltr">
+        <!-- [ Pre-loader ] start -->
+        <div class="loader-bg">
+            <div class="loader-track">
+                <div class="loader-fill"></div>
+            </div>
+        </div>
+        <!-- [ Pre-loader ] End -->
+        <!-- [ Sidebar Menu ] start -->
+        <nav class="pc-sidebar">
+            <div class="navbar-wrapper">
+                <div class="m-header">
+                    <a class="b-brand text-primary">
+                        <h1>PONGAME</h1>
+                    </a>
+                </div>
+                <div class="navbar-content">
+                    <ul class="pc-navbar">
+                        <li class="pc-item">
+                            <a data-url="{% url "dashboard" %}" onclick="loadContent('{% url "dashboardRaw" %}', '{% url "dashboard" %}')" class="pc-link">
+                                <span class="pc-micon mb-1">
+                                    <i class="bi bi-cast"></i>
+                                </span>
+                                <span class="pc-mtext">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a data-url="{% url "game" %}" onclick="loadContent('{% url "gameRaw" %}', '{% url "game" %}')" class="pc-link">
+                                <span class="pc-micon mb-1">
+                                    <i class="bi bi-controller"></i>
+                                </span>
+                                <span class="pc-mtext">Game</span>
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a data-url="{% url "leaderboard" %}" onclick="loadContent('{% url "leaderboardRaw" %}', '{% url "leaderboard" %}')" class="pc-link">
+                                <span class="pc-micon mb-1">
+                                    <i class="bi bi-list-ol"></i>
+                                </span>
+                                <span class="pc-mtext">Leaderboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card pc-user-card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0"><img id="leftImage-image" style="height: 45px; object-fit: cover;" src="{{ request.user.profile.profile_image }}" alt="user-image" class="user-avtar wid-45 rounded-circle" /></div>
+                            <div class="flex-grow-1 ms-3">
+                                <div class="dropdown">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-2">
+                                            <h6 id="leftImage-fullname" class="mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</h6>
+                                            <small id="leftImage-username">@{{ request.user.username }}</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <div class="btn btn-icon btn-link-secondary avtar">
+                                                <a onclick="logoutUser();" class="text-danger">
+                                                    <i class="bi bi-power fs-2"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- [ Sidebar Menu ] end -->
+
+        <!-- [ Header Topbar ] start -->
+        <header class="pc-header">
+            <div class="header-wrapper">
+                <!-- [Mobile Media Block] start -->
+                <div class="me-auto pc-mob-drp">
+                    <ul class="list-unstyled">
+                        <!-- ======= Menu collapse Icon ===== -->
+                        <li class="pc-h-item pc-sidebar-collapse">
+                            <a class="pc-head-link ms-0" id="sidebar-hide">
+                                <i class="bi bi-list"></i>
+                            </a>
+                        </li>
+                        <li class="pc-h-item pc-sidebar-popup">
+                            <a class="pc-head-link ms-0" id="mobile-collapse">
+                                <i class="bi bi-list"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown pc-h-item d-inline-flex d-md-none">
+                            <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <i class="bi bi-search"></i>
+                            </a>
+                            <div class="dropdown-menu pc-h-dropdown drp-search">
+                                <form class="px-3">
+                                    <div class="mb-0 d-flex align-items-center">
+                                        <input type="search" class="form-control border-0 shadow-none" placeholder="Search..." />
+                                        <button class="btn btn-light-secondary btn-search">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="pc-h-item d-none d-md-inline-flex">
+                            <form class="form-search">
+                                <i class="bi bi-search icon-search"></i>
+                                <input type="search" id="search-input" class="form-control" placeholder="Search..." />
+                                <button type="button" class="btn btn-search btn-dark" onclick="search(document.getElementById('search-input').value)">Ara</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <!-- [Mobile Media Block end] -->
+                <div class="ms-auto">
+                    <ul class="list-unstyled">
+                        <li class="dropdown pc-h-item">
+                            <a id="numBell" class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <i class="bi bi-bell-fill"></i>
+                                {% if request.user.profile.getFriendRequests|length > 0 %}
+                                <span id="not-number" class="badge bg-success pc-h-badge">{{ request.user.profile.getFriendRequests|length }}</span>
+                                {% endif %}
+                            </a>
+                            <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown" style="max-height: 700px;">
+                                <div class="dropdown-header d-flex align-items-center justify-content-between">
+                                    <h5 class="m-0">Notifications</h5>
+                                </div>
+                                <div class="dropdown-body text-wrap header-notification-scroll position-relative" style="height: 100%; overflow: hidden scroll">
+                                    <ul class="list-group list-group-flush" id="friend-requests-list">
+                                    {% for friend_request in request.user.profile.getFriendRequests %}
+                                        <li class="list-group-item" style="width: 450px;" id="friend-request-{{ friend_request.from_user.username }}">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0">
+                                                    <div class="flex-shrink-0">
+                                                        <img id="friend-image-{{ friend_request.from_user.username }}" src="{{ friend_request.from_user.profile.profile_image }}" alt="user-image" class="user-avtar avtar avtar-s" style="object-fit: cover;" />
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1 me-3 position-relative">
+                                                            <h6 class="mb-0 text-truncate">{{ friend_request.from_user.username }}</h6>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <span class="text-sm">{{ friend_request.created_at|timesince }} ago</span>
+                                                        </div>
+                                                    </div>
+                                                    <p class="position-relative mt-1 mb-2">Friend Request</p>
+                                                    <button class="btn btn-sm rounded-pill btn-outline-danger me-2" onclick="rejectRequest('{{ friend_request.from_user.username }}')">Decline</button>
+                                                    <button class="btn btn-sm rounded-pill btn-outline-success" onclick="acceptRequest('{{ friend_request.from_user.username }}')">Accept</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% empty %}
+                                        <li class="list-group-item">No friend requests.</li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="pc-h-item header-user-profile px-2">
+                            <a onclick="loadContent('{% url "profilesRaw" %}', '{% url "profiles" %}')" role="button"> <img id="rightImage-image" style="height: 40px; object-fit: cover;" src="{{ request.user.profile.profile_image }}" alt="user-image" class="user-avtar" /> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- [ Header ] end -->
+
+        <!-- [ Main Content ] start -->
+        <div id="content" class="pc-container">{% include current_page %}</div>
+        <!-- [ Main Content ] end -->
+
+        <footer class="pc-footer">
+            <div class="footer-wrapper container-fluid">
+                <div class="row">
+                    <div class="col-sm-6 text-end my-1">
+                        <p class="m-0">Made with &#9829; by Team 42</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Required Js -->
+        <script src="{% static "/js/popper.min.js" %}"></script>
+        <script src="{% static "/js/bootstrap.min.js" %}"></script>
+        <script src="{% static "/js/loadlater.js" %}"></script>
+        <script src="{% static "/js/nav.js" %}"></script>
+        <script src="{% static "/js/updateprofile.js" %}"></script>
+        <script src="{% static "/js/friends.js" %}"></script>
+        <script src="{% static "/js/pong3d.js" %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        {% block custom_js %}{% endblock custom_js %}
+    </body>
+    <!-- [Body] end -->
+</html>

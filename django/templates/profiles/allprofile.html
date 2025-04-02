@@ -1,0 +1,183 @@
+{% load static %}
+<div class="pc-content">
+    <!-- [ Main Content ] start -->
+    <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-lg-5 col-xxl-3">
+                    <div class="card overflow-hidden">
+                        <div class="card-body position-relative">
+                            <div class="text-center mt-3">
+                                <div class="chat-avtar d-inline-flex mx-auto">
+                                    <img id="middleImage-image" style="height: 90px; object-fit: cover" class="rounded-circle img-fluid wid-90 img-thumbnail" src="{{ user.profile.profile_image }}" alt="User image" />
+                                    <i class="chat-badge {% if user.profile.status == 'online' %} bg-success {% elif user.profile.status == 'away' %} bg-warning {% elif user.profile.status == 'offline' %} bg-danger {% else %} bg-dark {% endif %} p-2 me-2 mb-2"> </i>
+                                </div>
+                                <h5 id="middleImage-fullname" class="mb-0">{{ user.first_name }} {{ user.last_name }}</h5>
+                                <p id="middleImage-username" class="text-muted">@{{ user.username }}</p>
+                                <div class="row g-3">
+                                    <div class="col-4">
+                                        <h5 class="mb-0">{{ user.profile.matches_won }}</h5>
+                                        <small class="text-muted">Win</small>
+                                    </div>
+                                    <div class="col-4 border-start border-end">
+                                        <h5 class="mb-0">{{ user.profile.gol_scored }}</h5>
+                                        <small class="text-muted">Scored</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <h5 class="mb-0">{{ user.profile.matches_won|add:user.profile.matches_lost }}</h5>
+                                        <small class="text-muted">Match</small>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-4 pt-1 border-top">
+                                        <h5 class="mb-0">{{ user.profile.matches_lost }}</h5>
+                                        <small class="text-muted">Lost</small>
+                                    </div>
+                                    <div class="col-4 pt-1 border-top border-start border-end">
+                                        <h5 class="mb-0">{{ user.profile.gol_conceded }}</h5>
+                                        <small class="text-muted">Conceded</small>
+                                    </div>
+                                    <div class="col-4 pt-1 border-top">
+                                        <h5 class="mb-0">{{ user.profile.friendsCount }}</h5>
+                                        <small class="text-muted">Friends</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Oyuncu İstatistikleri</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Win</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-success" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ user.profile.winRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ user.profile.winRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Lose</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-danger" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ user.profile.lostRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ user.profile.lostRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Attılan gol</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-primary" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ user.profile.hitGolRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ user.profile.hitGolRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Yenilen Gol</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-warning" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ user.profile.concededGolRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ user.profile.concededGolRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Score</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0">{{ user.profile.score }} Point</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-xxl-9">
+                    <div class="tab-content" id="user-set-tabContent">
+                        <div class="tab-pane fade active show" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
+                            <div id="message-af" class=""></div>
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5>Personal Details</h5>
+                                    <button class="btn btn-success" onclick="addFriend('{{user.username}}')">Add Friend</button>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item px-0 pt-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Full Name</p>
+                                                    <p id="middle2Image-fullname" class="mb-0">{{ user.first_name }} {{ user.last_name }}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Username</p>
+                                                    <p id="middle2Image-username" class="mb-0">{{ user.username }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Email</p>
+                                                    <p id="middle2Image-email" class="mb-0">{{ user.email }}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Last Login</p>
+                                                    <p class="mb-0">{{ user.last_login }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ sample-page ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
+</div>

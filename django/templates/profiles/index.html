@@ -1,0 +1,272 @@
+{% load static %}
+<div class="pc-content">
+    <!-- [ Main Content ] start -->
+    <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-lg-5 col-xxl-3">
+                    <div class="card overflow-hidden">
+                        <div class="card-body position-relative">
+                            <div class="text-center mt-3">
+                                <div class="chat-avtar d-inline-flex mx-auto">
+                                    <img id="middleImage-image" style="height: 90px; object-fit: cover" class="rounded-circle img-fluid wid-90 img-thumbnail" src="{{ request.user.profile.profile_image }}" alt="User image" />
+                                    <i class="chat-badge {% if request.user.profile.status == 'online' %} bg-success {% elif request.user.profile.status == 'away' %} bg-warning {% elif request.user.profile.status == 'offline' %} bg-danger {% else %} bg-dark {% endif %} p-2 me-2 mb-2"> </i>
+                                </div>
+                                <h5 id="middleImage-fullname" class="mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</h5>
+                                <p id="middleImage-username" class="text-muted">@{{ request.user.username }}</p>
+                                <div class="row g-3">
+                                    <div class="col-4">
+                                        <h5 class="mb-0">{{ request.user.profile.matches_won }}</h5>
+                                        <small class="text-muted">Win</small>
+                                    </div>
+                                    <div class="col-4 border-start border-end">
+                                        <h5 class="mb-0">{{ request.user.profile.gol_scored }}</h5>
+                                        <small class="text-muted">Scored</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <h5 class="mb-0">{{ request.user.profile.matches_won|add:request.user.profile.matches_lost }}</h5>
+                                        <small class="text-muted">Match</small>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-4 pt-1 border-top">
+                                        <h5 class="mb-0">{{ request.user.profile.matches_lost }}</h5>
+                                        <small class="text-muted">Lost</small>
+                                    </div>
+                                    <div class="col-4 pt-1 border-top border-start border-end">
+                                        <h5 class="mb-0">{{ request.user.profile.gol_conceded }}</h5>
+                                        <small class="text-muted">Conceded</small>
+                                    </div>
+                                    <div class="col-4 pt-1 border-top">
+                                        <h5 class="mb-0">{{ request.user.profile.friendsCount }}</h5>
+                                        <small class="text-muted">Friends</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0" id="user-set-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link list-group-item list-group-item-action active" id="user-set-profile-tab" data-bs-toggle="pill" href="#user-set-profile" role="tab" aria-controls="user-set-profile" aria-selected="true">
+                                <span class="f-w-500"><i class="bi bi-person-badge-fill m-r-10"></i>Profile Overview</span>
+                            </a>
+                            <a class="nav-link list-group-item list-group-item-action" id="user-set-information-tab" data-bs-toggle="pill" href="#user-set-information" role="tab" aria-controls="user-set-information" aria-selected="false" tabindex="-1">
+                                <span class="f-w-500"><i class="bi bi-person-fill-gear m-r-10"></i>Edit Profile</span>
+                            </a>
+                            <a class="nav-link list-group-item list-group-item-action" id="user-set-passwort-tab" data-bs-toggle="pill" href="#user-set-passwort" role="tab" aria-controls="user-set-passwort" aria-selected="false" tabindex="-1">
+                                <span class="f-w-500"><i class="bi bi-key-fill m-r-10"></i>Change Password</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Oyuncu İstatistikleri</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Win</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-success" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ request.user.profile.winRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ request.user.profile.winRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Lose</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-danger" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ request.user.profile.lostRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ request.user.profile.lostRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Attılan gol</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-primary" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ request.user.profile.hitGolRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ request.user.profile.hitGolRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Yenilen Gol</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="progress progress-warning" style="height: 6px">
+                                                <div class="progress-bar" style="width: {{ request.user.profile.concededGolRate }}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0 text-muted">{{ request.user.profile.concededGolRate }}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
+                                    <p class="mb-0">Score</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <p class="mb-0">{{ request.user.profile.score }} Point</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-xxl-9">
+                    <div class="tab-content" id="user-set-tabContent">
+                        <div class="tab-pane fade active show" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Personal Details</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item px-0 pt-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Full Name</p>
+                                                    <p id="middle2Image-fullname" class="mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Username</p>
+                                                    <p id="middle2Image-username" class="mb-0">{{ request.user.username }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Email</p>
+                                                    <p id="middle2Image-email" class="mb-0">{{ request.user.email }}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted">Last Login</p>
+                                                    <p class="mb-0">{{ request.user.last_login }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Update Profile Picture</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="message" class="mb-2"></div>
+                                    <input type="file" id="profile-image" name="profile_image" accept="image/*">
+                                    <button onclick="uploadProfilePicture()" class="btn btn-primary">Upload Image</button>
+                                </div>
+                            </div>                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Edit Personal Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div id="message-pi" class="mb-2"></div>
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Username</label>
+                                                <input id="username" type="text" class="form-control" value="{{ request.user.username }}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Email</label>
+                                                <input id="email" type="text" class="form-control" value="{{ request.user.email }}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">First Name</label>
+                                                <input id="first-name" type="text" class="form-control" value="{{ request.user.first_name }}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Last Name</label>
+                                                <input id="last-name" type="text" class="form-control" value="{{ request.user.last_name }}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-start btn-page">
+                                <button onclick="updateProfile()" class="btn btn-primary">Update Profile</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="user-set-passwort" role="tabpanel" aria-labelledby="user-set-passwort-tab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Change Password</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="message-pw" class="mb-2"></div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item px-0">
+                                            <div class="row mb-0">
+                                                <label class="col-form-label col-md-4 col-sm-12 text-md-end">New Password <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 col-sm-12">
+                                                    <input id="new-password" type="password" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item pb-0 px-0">
+                                            <div class="row mb-0">
+                                                <label class="col-form-label col-md-4 col-sm-12 text-md-end">Confirm Password <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 col-sm-12">
+                                                    <input id="confirm-password" type="password" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body text-start">
+                                <div class="btn btn-primary" onclick="updatePassword()">Change Password</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ sample-page ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
+</div>
